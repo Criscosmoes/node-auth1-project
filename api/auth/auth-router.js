@@ -43,5 +43,17 @@ router.post("/login", [checkPayload, checkIfUserExists], async (req, res) => {
     }
 })
 
+router.get("/logout", (req, res) => {
+    if(req.session.user){
+        req.session.destroy(err => {
+            if(err) res.json("you can not leave"); 
+            else res.json("goodbye"); 
+        }); 
+    }
+    else {
+        res.json("there was no session");
+    }
+})
+
 
 module.exports = router; 
